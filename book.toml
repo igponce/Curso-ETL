@@ -1,6 +1,5 @@
 [book]
 authors = ["Iñigo González"]
 language = "es"
-multilingual = false
 src = "src"
-title = "Curso de ETL + Apache Airflow"
+title = "Curso Orquestación de ETLs + Apache Airflow"

@@ -1,0 +1,5 @@
+# Este directorio tiene mdbook
+# Ignoramos todo el contenido para que no se quede dentro del repo
+# Para instalar mdBook desde el repo ejecutamos:
+# cargo install --git https://github.com/rust-lang/mdBook.git mdbook
+*
