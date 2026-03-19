@@ -50,11 +50,24 @@ Una Reverse ETL no es una data mesh. Es el proceso que te permite coordinar la i
 En el mundo real(tm) lo normal es que la información "aparezca" en un sistema, tomes esa información como "la verdad", y la propagues al resto de sistemas.
 Para eso, te quedas (o construyes) un "golden record".
 
-## Ventajas y retos ETL / Reverse ETL
+## Ventajas y desventajas
 ### ETL
-- **Ventajas:** Calidad y consistencia de datos, historial completo, soporte para grandes volúmenes.  
-- **Retos:** Latencia (batch), complejidad de transformación, coste de infraestructura.
+- **Ventajas:** 
+  - Calidad y consistencia de datos
+  - Historial completo
+  - Soporte para grandes volúmenes.  
+- **Desventajas:** 
+  - Latencia (batch)
+  - Complejidad de transformación
+  - Coste de infraestructura.
 
 ### Reverse ETL
-- **Ventajas:** Datos “activados” en tiempo real, mejora de la experiencia del cliente, reducción de silos.  
-- **Retos:** Necesidad de mantener la sincronización, gestión de cambios de esquema, seguridad en la exposición de datos.
+- **Ventajas:** 
+  - Datos “activados” en tiempo real / near-real-time
+  - Mejora de la experiencia del cliente
+  - Reducción de silos.  
+- **Desventajas:**
+- ¡ COSTE !
+- Necesidad de mantener la sincronización
+- Gestión de cambios de esquema
+- Seguridad en la exposición de datos.

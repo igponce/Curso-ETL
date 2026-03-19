@@ -13,4 +13,4 @@ Nadie se puede permitir un procesar datos sin saber que tiene cargado en el sist
 # Prácticas
 
 Antes de empezar la parte práctica tienes que instalar Apache Airflow.
-Tienes dos opciones: instalarlo con un contenedor (utilizando docker-compose), o instalar Airflow en tu ordenador y ejecutarlo desde ahí.
+Tienes dos opciones: instalarlo con un contenedor (utilizando docker-compose), o instalar Airflow en tu ordenador con pypy o uv y ejecutarlo desde ahí.
