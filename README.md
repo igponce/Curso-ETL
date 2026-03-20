@@ -11,5 +11,10 @@ $ cd bin
 $ cargo install --git https://github.com/rust-lang/mdBook.git mdbook
 ```
 
+También tienes que instalar `mdbook-mermaid` para poder ver los diagramas:
+```bash
+cargo install mdbook-mermaid
+```
+
 Una vez instalado mdbook, ejecuta `bin/mdbook serve`y mdbook compilará en html el contenido.
-Puedes acceder al libro en [http://localhost:3000/](http://localhost:3000/) 
+Puedes acceder al libro en [http://localhost:3000/](http://localhost:3000/)

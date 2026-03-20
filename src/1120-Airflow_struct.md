@@ -13,7 +13,7 @@ $AIRFLOW_HOME/
 ├── plugins/                    # Controles extra, Hooks, Operators… que se cargan automáticamente
 ├── config/                     # Archivos de entorno (Variables, Secrets-Backend, etc.)
 ├── scripts/                    # Helpers operativos para admins
-└── dags/                       # ⬅️  TU CÓDIGO VIVE AQUÍ
+└── dags/                       # ⬅️  ******* TU CÓDIGO VIVE AQUÍ *****
     ├── dag_1.py
     ├── …
     └── helpers/

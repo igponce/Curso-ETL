@@ -19,9 +19,8 @@
   - Acciones
 
 ## Operadores de uso común
-
 - SQL
-- dbt
+- SFTP
 -
 
 ## XCOM - Comunicación entre Operadores

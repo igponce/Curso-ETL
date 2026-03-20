@@ -3,3 +3,10 @@ authors = ["Iñigo González"]
 language = "es"
 src = "src"
 title = "Curso Orquestación de ETLs + Apache Airflow"
+
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
