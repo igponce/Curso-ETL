@@ -18,3 +18,7 @@ Tienes dos opciones: instalarlo con un contenedor (utilizando docker-compose), o
 Para los ejemplos utilzaremos Airflow3.
 Muchas empresas siguen usando Airflow versión 2 porque hay cambios en la interfaz de desarrollo y hay que adaptar los Dags a la versión nueva antes de migrarlos.
 Los ejemplos usan la forma "vieja" de definir tareas (aunque tiene más código boilerplate), pero permiten que alguien que tenga que migrar código de v2 a v3 pueda saber lo que hace.
+
+# Gitbook
+
+El código de esta documentación y el curso está disponible en Github: [Repositorio Curso-ETL](https://github.com/igponce/Curso-ETL)
