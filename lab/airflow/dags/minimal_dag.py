@@ -8,7 +8,6 @@ from airflow.operators.python import PythonOperator
 # Simulamos algo que tarda 5 segundos en ejecutarse
 # Don't panic: enseguida veremos algo que se parece más al mundo real.
 
-
 def sleep_task(**context):
     """Simulamos una tarea que tarda 5 seconds"""
     print("Starting sleep task...")
@@ -21,7 +20,7 @@ default_args = {
     "start_date": datetime(2026, 1, 1),
     "retries": 1,
     "retry_delay": timedelta(minutes=5),
-}
+
 
 # Creamos el dag.
 dag = DAG(
@@ -35,5 +34,5 @@ dag = DAG(
 sleep_operator = PythonOperator(
     task_id="sleep_task",
     python_callable=sleep_task,
-    dag=dag,  # Hay que enlazarlo con el DAG.
+    dag=dag,  # Enlazarlo con el DAG si no usamos context manager with .... as dag:)
 )

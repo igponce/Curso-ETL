@@ -25,6 +25,7 @@
 
  - [Nuestro primer DAG](1500-Airflow_first.md)
  - [Cuándo se ejecutan los dags](1510-Airflow_Schedules.md)
+ - [Caso Práctico](1800-Airflow_ingesta.md)
 
  # Prefect
  
