@@ -64,9 +64,132 @@ RETRY_DELAY_MINUTES = 2
 
 ## Python callables (funciones que usaremos)
 
+Los callables son funciones de python que pasamos como argumento a los operadores [PythonOperator](https://airflow.apache.org/docs/apache-airflow-providers-standard/stable/operators/python.html), [PythonVirtualenvOperator](airflow.apache.org/docs/apache-airflow-providers-standard/stable/operators/python.html#pythonvirtualenvoperator)
 
-##Definición del DAG
+```
+def procesa_fichero_a_lo_loco():
+    """
+    Creamos dos ficheros:
+      - splitted.sql -> Contiene los cuatro primeros campos del CSV.
+      - filelist     -> Lista de archivos que hemos procesado
+
+      **IMPORTANTE** Esta función crea un fichero SQL dentro
+         del directorio DAGs de Airflow !!!!
+
+         La inserción en la BBDD necesita un SQL, o un fichero.sql
+         
+        ** ESTO NO ES UNA BUENA PRACTICA Y NO SE RECOMIENDA **
+        Ese directorio será el resultado de un proceso CI/CD
+        ¿Donde podemos poner el fichero? Si lo volcamos a un directorio
+        y el operador que ejecuta el SQL se lanza en una máquina distinta
+        la ETL fallará....
+
+    """
+    import glob
+
+    # Vamos a procesar 
+
+    with open('/home/mbit/data/out/inigo/filelist', 'w') as filelist:
+        with open('/home/mbit/airflow/dags/staging.sql', 'w') as outfile: 
+            for ff in glob.glob('/home/mbit/incoming/inigo/*.csv'):
+                with open(ff, 'r') as fp:
+                    for line in fp.readlines()[1:]:
+                        campos = line.split(',')
+                        output = ','.join([ f"'{x}'" for x in campos[0:4] ]) #Hay que adaptar el dato y poner comilla simple
+                        insert_statement = f"INSERT INTO passengers VALUES ({output});"
+                        outfile.write(f'{insert_statement}\n')
+                filelist.write(f'{ff}\n')
+
+```
+
+En vez de utilzar un parser de CSV, o leer los ficheros con Pandas, se utilizan funciones de librería estándar.
+
+Como queremos sólo los cuatro primeros campos del fichero CSV, los extraemos de la siguiente manera:
+  - Para cada línea del fichero ejecutamos str.split(','). Esto nos develve un array con subcadenas
+  - Como queremos sólo los primeros cuatro campos, utilizamos `campos[0:4]`
+  - Utilizamos un list-comprehension para crear un array con que contiene entre comillas simples el contenido de cada componente del arral (campos[0:4])
+  - Finalmente para volver a tener una cadena separada por comas (','), ejecutamos `','.join()
+Por último estribimos esto dentro de una cadena que tiene una query sql: `INSERT INTO ... VALUES ( __resultado__ )` y lo guardamos en un fichero para que lo ejecute después un operador SQLExecuteQueryOperator.
+
+Esto funcionará sólo si se ejecuta todo en el runner de Airflow: si nos asignan una maquina distinta para ejecutar algunas tareas del DAG, los ficheros no estarán en la máquina y fallará.
+
+## Definición del DAG
+
+```python
+# ---------------------------  DEFAULT ARGUMENTS  ----------------------------- #
+default_args = {
+    "owner": "data-engineering",
+    "depends_on_past": False,
+    "start_date": datetime.utcnow() - timedelta(days=1),
+    "email_on_failure": False,
+    "email_on_retry": False,
+    "retries": RETRY_ATTEMPTS,
+    "retry_delay": timedelta(minutes=RETRY_DELAY_MINUTES),
+    "max_active_runs": 1,  # only run one DAG run at a time
+}
+# -------------------------------------------------------------------------- #
+
+# ---------------------------  DAG DEFINITION  ----------------------------- #
+dag = DAG(
+    DAG_ID,
+    description=DESCRIPTION,
+    tags=TAGS,
+    default_args=default_args,
+    # Automatic execution rules
+    schedule="*/10 * * * *",  # cada 10 minutes
+    catchup=False,  # prevent backfilling on first deploy
+    max_active_runs=1,
+    dagrun_timeout=timedelta(minutes=MAX_RUNTIME_MINUTES),
+)
+```
+
+Lo más importante de la definición del DAG es el identificador, que debe ser único, la planificación del dag (se puede usar un formato cron, o algo más sofisticado como hacer que se ejecute cada 137 minutos usando [DeltaTriggerTimetable](https://airflow.apache.org/docs/apache-airflow/stable/authoring-and-scheduling/timetable.html#deltatriggertimetable) )
+
 ## Definición de Operadores que usamos.
+
+```python
+with dag:
+
+    copia_ficheros_entrantes = BashOperator(
+        # como queremos llamar a este 'step'
+        # que queremos ejecutar
+        task_id = "copia_incoming",
+        bash_command = 'cp /tmp/incoming/*csv /home/mbit/incoming/inigo'
+    )
+
+    borrar_ficheros_entrantes = BashOperator(
+        task_id = "borra_ficheros_entrada",
+        bash_command = 'rm /tmp/incoming/*csv'
+    )
+    
+    ...
+    
+```
+
+Cada operador es un objeto que tenemos que instanciar.
+Si utilizamos el dag como contexto (con el `with dag:`) no tenemos que asignar uno a uno el dag al que corresponde.
+
+Los operadores pueden usar plantillas JINJA en vez de cadenas como aquí, que utilizamos XCOM para pasar el contenido a insertar (que no es muy grande) que habíamos calculado antes.
+
+```
+    insert_into_staging = SQLExecuteQueryOperator(
+        task_id = "insert_into_staging",
+        conn_id = 'staging', # Definido en la config de Airflow.
+        # Para ver qué hacer la BBDD en los logs
+        hook_params={"enable_log_db_messages": True},
+        
+        # Este es el caso de la mala paráctica sin XCOM
+        # sql = "staging.sql" # SQL que hemos generado en el Python Operator
+
+        # Hacemos pull en XCOM la clave del sql que hemos hecho push antes.
+        # Necesitamos el id de la tarea que ha generado el contenido a compartir.
+        # OJO! Sigue estando disponible!!!
+
+        # Ah! y el tamaño de lo que tenemos en XCOM hay que controlarlo
+        sql = "{{ ti.xcom_pull(key='sql', task_ids='lee_csv') }}"
+        
+    )
+```
 
 ## Flujo de tareas
 
