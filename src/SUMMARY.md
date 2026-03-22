@@ -25,9 +25,9 @@
 
  - [Nuestro primer DAG](1500-Airflow_first.md)
  - [Cuándo se ejecutan los dags](1510-Airflow_Schedules.md)
- - [Caso Práctico](1800-Airflow_ingesta.md)
+ - [XCOM](1520-Airflow_XCOM.md)
 
- # Prefect
- 
- - [Qué es Prefect](2000-Prefect_que_es.md)
- - [Prefect Cloud](2010-Prefect_cloud.md)
+# Caso práctico de Airflow
+
+ - [Caso Práctico](1800-Airflow_ingesta.md)
+ - [Caso Práctico paso a paso](1810-Airflow_ingesta_paso_a_paso.md)
