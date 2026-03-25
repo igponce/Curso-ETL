@@ -116,7 +116,7 @@ def procesa_ficheros_XCOM(**context):
                         )  # Hay que adaptar el dato y poner comilla simple
                         insert_statement = f"INSERT INTO passengers VALUES ({output});"
                         outfile.write(f"{insert_statement}\n")
-                filelist.write(f"{ff}\n")
+                filelist.write(f"{ff} ")
 
     # Hasta aquí todo exactamente igual. Vamos a mandar a XCOM los contenidos.
     # Vamos a leer los ficheros que hemos generado y los mandamos a XCOM.
