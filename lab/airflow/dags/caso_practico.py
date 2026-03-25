@@ -175,9 +175,26 @@ with dag:
         task_id="borra_ficheros_entrada", bash_command="rm /tmp/incoming/*csv"
     )
 
+    """
+    Versión anterior - sin usar XCOM
+
     borrar_ficheros_staging = BashOperator(
         task_id="borra_ficheros_staging",
         bash_command="rm $(cat /home/mbit/data/out/inigo/filelist)",
+    )
+    """
+
+    """
+       Fíjate en que con XCOM creamos plantillas e incluso podríamos
+       tener bucles.
+    """
+    borrar_ficheros_staging = BashOperator(
+        task_id="borra_ficheros_staging",
+        bash_command="""
+           echo FICHEROS A BORRAR
+           echo {{ ti.xcom_pull(key='filelist', task_ids='lee_csv') }}
+           rm {{ ti.xcom_pull(key='filelist', task_ids='lee_csv') }}
+        """,
     )
 
     """
