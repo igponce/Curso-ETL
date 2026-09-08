@@ -1,4 +1,4 @@
-# Ingeniería ETL: Estrategia
+# Ingeniería ETL: Estrategia y principios
 
 Para hacer y orquestar una ETL tenemos que desarrollar una estrategia.
 
@@ -41,6 +41,8 @@ Una técnica de "divide y vencerás" es utilizar capas.
 graph LR
     transaccional --> raw_data --> bronce --> silver --> gold
 ```
+Esta estructura de capas se denomina a veces `medallion architecture`.
+
 
 El dato vive en una capa transaccional que no es nuestra: lo primero que tenemos que hacer es sacarlo de ahí con seguridad.
 
