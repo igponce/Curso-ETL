@@ -4,9 +4,12 @@
 
 - [Que es ETL](0010-QueEsETL.md)
 - [Estrategias ETL](0020-Estrategias_ETL.md)
+- [Happy path](0040-HappyPath.md)
 - [Más allá del Crontab](0030-NoSoloCron.md)
 - [Ingeniería ETL](0050-ETLEngineering.md)
-- [Ingenieria ETL: Happy path](0040-HappyPath.md)
+- [Ingeniería ETL: Descripción](0051-ETLEngineering_descripcion.md)
+- [Ingeniería ETL: Ejecución](0052-ETLEngineering_ejecucion.md)
+- [Ingeniería ETL: Control de tiempos](0053-ETLEngineering_control_tiempos.md)
 - [Ingeniería ETL: Estrategias](0060-IngenieriaETL.md)
 
 ## Reverse ETL

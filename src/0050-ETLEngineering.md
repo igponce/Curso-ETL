@@ -5,8 +5,8 @@ Para que el proceso ETL se pueda ejecutar de manera ordenada necesitamos:
 
 1. Describirlo
 2. Ejecutarlo (en alguna parte)
-3. Controlar cuándo se ejecuta
-4. Controlar duración
+3. Control de tiempos.
+4. Control de rendimiento.
 5. No interferir con otros sistemas.
 6. Observabilidad: ¿qué ha ocurrido?
 7. Estado: ¿que ha pasado? ¿ha ido todo correctamente o no?
@@ -15,3 +15,5 @@ Para que el proceso ETL se pueda ejecutar de manera ordenada necesitamos:
 10. No volvernos locos con los puntos anteriores: para esto necesitamos un orquestador.
 
 **TODO ESTO es mucho más complejo** que el `happy path`.
+
+**ES UN PROCESO DE INGENIERÍA**
