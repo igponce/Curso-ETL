@@ -34,6 +34,7 @@ Por ejemplo, Oracle necesita una licencia de Cluster para utilizar CDC.
 Además, para hacer CDC tenemos que incluir un software adicional (como Debezium) que entienda el formato del log de transacciones y nos envíe los cambios a medida que se realizan transacciones.
 También necesitaremos una cola de mensajes (como Kafka, MQ, etc..) para almacenar los cambios y enviarlos a destino.
 
-También estamso limitados en que los cambios que se capturan se limitan a tablas individuales.
+Otra limitación es que los cambios que se capturan se limitan a tablas individuales.
 Si utilizamos vistas con joins, o vistas materializadas, el CDC no detectará cambios en los datos.
 Estos cambios en los datos los tendremos que adaptar a la estructura que queramos en destino.
+Esto nos va a obligar a rehacer la ETL cuando haya algún cambio en la estructura de la base de datos.

@@ -12,6 +12,9 @@
 - [Ingeniería ETL: Control de tiempos](0053-ETLEngineering_control_tiempos.md)
 - [Ingeniería ETL: Control de rendimiento](0054-ETLEngineering_rendimiento.md)
 - [Ingeniería ETL: No interferencia](0055-ETLEngineering_no_interferencia.md)
+- [Ingeniería ETL: Observabilidad](0056-ETLEngineering_observabilidad.md)
+- [Ingeniería ETL: Parada, reinicio, y reanudación](0057-ETLEngineering_parada_reinicio_reanudacion.md)
+- [Ingeniería ETL: Modificaciones y parametrización](0058-ETLEngineering_modificaciones.md)
 - [Ingeniería ETL: Estrategias](0060-IngenieriaETL.md)
 
 ## Reverse ETL

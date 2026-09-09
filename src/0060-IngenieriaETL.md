@@ -2,7 +2,7 @@
 
 Para hacer y orquestar una ETL tenemos que desarrollar una estrategia.
 
-## Minima disrupción
+## Mínimo contacto
 
 Tenemos que tener en cuenta que vamos a manipular sistemas transaccionales.
 
@@ -14,7 +14,7 @@ Un tansaccional parado afecta a toda la organización.
 
 No basta con hacer una extracción de datos lo más rápida posible.
 
-Por regla general ***cuanto más tardes en hacer la extracción de datos, más posibilidades hay de que algo EXTERNO falle *** y tu proceso caíga en cascada **pero esa posibilidad no es frecuente**.
+Por regla general *** cuanto tiempo más tardes en hacer la extracción de datos, más posibilidades hay de que algo EXTERNO falle *** y tu proceso caíga en cascada **pero esa posibilidad no es frecuente**.
 
 La extracción puede ser más lenta, si garantizamos la integridad de toda la infraestructura que hay alrededor de los sistemas.
 
